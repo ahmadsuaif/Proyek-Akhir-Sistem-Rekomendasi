@@ -36,9 +36,9 @@ Contoh potensi manfaat dari Sistem Rekomendasi Aplikasi ini adalah membantu peng
 - Untuk mengetahui perfoma model dilakukan pengecekan performa dengan metrik evaluasi seperti Precission, Calinski Harabasz Score, dan Davies Bouldin Score
 
 ## Data Understanding
-Data yang digunakan dalam pembuatan model merupakan data sekunder. Data diambil dari Kaggle dengan nama *dataset* yaitu *California House Price*. 
+Data yang digunakan dalam pembuatan model merupakan data sekunder. Data diambil dari Kaggle dengan nama *dataset* yaitu *Google Play Store Apps*. 
 
-URL: [https://www.kaggle.com/*dataset*s/shibumohapatra/house-price](https://www.kaggle.com/datasets/lava18/google-play-store-apps)
+URL: [https://www.kaggle.com/datasets/lava18/google-play-store-apps]
 
 Berikut merupakan detail dari *dataset* yang digunakan untuk pembuatan model:
 - Dataset berupa 3 buah file CSV yaitu googleplaystore.csv, googleplaystore_user_reviews.csv, dan license.txt
@@ -76,7 +76,7 @@ Gambar 1a. Analisis Univariat (Data Kategori)
 
 Gambar 1b. Analisis Univariat (Data Numerik)
 
-Berdasarkan Gambar 1a, dapat dilihat bahwa distribusi data 'Category' memiliki perbandingan jumlah yang tidak sama, dengan tiga 'Catergory' yang paling banyak berturut-turut yaitu: FAMILY sebanyak 1972 sampel dengan persentase 18.2%, GAME sebanyak 1144 sampel dengan persentase 10.6%, dan TOOLS sebanyak 843 sampel dengan persentase 7.8%. Untuk eksplorasi lebih lanjut, bisa divisualisasikan fitur kategorik lainnya. Sedangakan untuk fitur numerik, berdasarkan Gambar 1b, dapat dilihat mayoritas rating berada pada score 4, namun tampak bahwa visualisasi ini menampilkan rentang skor yang luas yaitu 0 sampai dengan sekitar 20. Oleh karena itu, pada bagian selanjutnya yaitu Data Preparation perlu dilakukan tindakan lebih terhadap fitur 'Rating'.
+Berdasarkan Gambar 1a, dapat dilihat bahwa distribusi data 'Category' memiliki perbandingan jumlah yang tidak sama, dengan tiga 'Catergory' yang paling banyak berturut-turut yaitu: FAMILY sebanyak 1972 sampel dengan persentase 18.2%, GAME sebanyak 1144 sampel dengan persentase 10.6%, dan TOOLS sebanyak 843 sampel dengan persentase 7.8%. Untuk eksplorasi lebih lanjut, bisa divisualisasikan fitur kategorik lainnya. Sedangkan untuk fitur numerik, berdasarkan Gambar 1b, dapat dilihat mayoritas rating berada pada score 4, namun tampak bahwa visualisasi ini menampilkan rentang skor yang luas yaitu 0 sampai dengan sekitar 20. Oleh karena itu, pada bagian selanjutnya yaitu Data Preparation perlu dilakukan tindakan lebih terhadap fitur 'Rating'.
   
 ## Data Preparation
 Pada proses *Data Preparation* dilakukan kegiatan seperti *Data Gathering*, *Data Assessing*, dan *Data Cleaning*.
@@ -218,6 +218,11 @@ Berikut adalah potongan kode untuk mengukur besar Calinski-Harabasz Score dari m
 ```
 calinski_harabasz_score(googleplaystore, app_name)
 ```
+Berikut adalah skor setelah potongan kode tersebut dijalankan 
+```
+7.4998974132315315
+```
+
 Pada model ini, nampak bahwa kluster masih belum terpisahkan dengan baik karena nilai skornya masih cukup rendah. Hal ini memungkinkan adanya rekomendasi pada beberapa aplikasi yang tidak sesuai dengan aplikasi yang disukai pengguna.
 
 c. Davies-Bouldin Score
@@ -226,13 +231,17 @@ Berikut adalah potongan kode untuk mengukur besar Davies-Bouldin Score dari mode
 ```
 davies_bouldin_score(googleplaystore, app_name)
 ```
+Berikut adalah skor setelah potongan kode tersebut dijalankan 
+```
+1.585735926526135
+```
 Hasil evaluasi menunjukkan bahwa model ini memiliki skor yang relatif cukup kecil. Hal ini menandakan bahwa model sudah memiliki separasi kluster yang cukup baik. Hal ini terbukti dengan hasil rekomendasi aplikasi yang sudah cukup baik.
 
 
 ## Referensi:
 [1] Akhlak, Nancy, Suchit, Anil. (2021). Play Store App Analysis. International Research Journal of Engineering and Technology. 8. 3888-3893.
 
-[2] Burke, Robin & Felfernig, Alexander & Göker, Mehmet. (2011). Recommender Systems: An Overview. Ai Magazine. 32. 13-18. 10.1609/aimag.v32i3.2361. 
+[2] Burke, Robin & Felfernig, Alexander & Göker, Mehmet. (2011). Recommender Systems: An Overview. AI Magazine. 32. 13-18. 10.1609/aimag.v32i3.2361. 
 
 [3] Pagare, Reena & Shinde, Anita. (2012). A Study of Recommender System Techniques. International Journal of Computer Applications. 47. 1-4. 10.5120/7269-0078. 
 
