@@ -18,7 +18,7 @@ Contoh potensi manfaat dari Sistem Rekomendasi Aplikasi ini adalah membantu peng
 - Pada bagian Data Assesing, apakah terdapat terdapat data duplikat dan data missing? Jika ada tindakan apa yang paling tepat untuk diterapkan?
 - Pada bagian Data Cleaning, apakah perlu dilakukan tindakan dropping ataupun imputation untuk memastikan data layal digunakan untuk pengembangan model?
 - Bagaimana mengolah *dataset* agar dapat dibuat model sistem rekomendasi?
-- Bagimana membuat model sistem rekomendasi Content Based Filtering dan Collaborative Filtering?
+- Bagimana membuat model sistem rekomendasiCosine Similarity dan K-Nearest Neighbor?
 - Bagaimanna cara mengukur nilai perfoma model sistem rekomendasi yang telah dibangun?
 
 ### Goals
@@ -26,7 +26,7 @@ Contoh potensi manfaat dari Sistem Rekomendasi Aplikasi ini adalah membantu peng
 - Melakukan proses Data Assesing untuk melihat kemungkinan adanya data duplikat dan data missing
 - Melakukan proses Data Cleaning dan melakukan tindakan yang paling tepat untuk membersihkan data untuk kemudian siap digunakan untuk pengembangan model
 - Melakukan proses Data Preparation seperti Vectorizing dan Data Spliting sebelum pembuatan model
-- Membuat model sistem rekomendasi Content Based Filtering dan Collaborative Filtering berdasarkan fitur yang telah dipilih dari dataset
+- Membuat model sistem rekomendasi Cosine Similarity dan K-Nearest Neighbor berdasarkan fitur yang telah dipilih dari dataset
 - Mengukur perfoma model sistem rekomendasi dengan menggunakan metrik evaluasi
 
 
