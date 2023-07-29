@@ -6,7 +6,7 @@ Google Play adalah toko online yang sangat populer untuk menemukan aplikasi, gam
 
 Sistem rekomendasi merupakan sistem yang memberikan rekomendasi pada suatu item yang dapat digunakan untuk membantu user dalam mengambil keputusan. [[2](https://www.researchgate.net/publication/220604600_Recommender_Systems_An_Overview)] [[3](https://www.researchgate.net/publication/258651634_A_Study_of_Recommender_System_Techniques)] [[4](https://www.researchgate.net/publication/281705736_Decision-making_in_recommender_systems_The_role_of_user's_goals_and_bounded_resources)]. Dalam hal pengambilan keputusan guna memilih aplikasi yang paling sesuai untuk di-install pengguna Google Play, maka tentunya pengembangan sistem rekomendasi merupakan hal yang akan sangat membantu pengguna.
 
-Dalam hal pengembangan model sistem rekomendasi, ada banyak faktor yang bisa menjadi bahan pertimbangan [[5](https://www.researchgate.net/publication/331063850_Recommender_Systems_Challenges_and_Solutions_Survey)], Pada sistem rekomendasi aplikasi faktor-faktor yang bisa menjadi bahan pertimbangan antara lain seperti Category,	Rating,	Reviews, Size, Installs,	Type,	Price,	Content, Rating,	Genres,	Last Updated,	Current Ver,	Android Ver, dan faktor-faktor lainnya. Karena model sistem rekomendasi yang akan dikembangkan pada proyek ini yaitu model Content Based Filtering dan Collaborative Filtering sederhana, sehingga faktor-faktor yang akan dipelajari pada proyek ini hanya beberapa saja. Untuk faktor-faktor lainnya akan dipelajari pada pengembangan model lebih lanjut nantinya.
+Dalam hal pengembangan model sistem rekomendasi, ada banyak faktor yang bisa menjadi bahan pertimbangan [[5](https://www.researchgate.net/publication/331063850_Recommender_Systems_Challenges_and_Solutions_Survey)], Pada sistem rekomendasi aplikasi faktor-faktor yang bisa menjadi bahan pertimbangan antara lain seperti Category,	Rating,	Reviews, Size, Installs,	Type,	Price,	Content, Rating,	Genres,	Last Updated,	Current Ver,	Android Ver, dan faktor-faktor lainnya. Pada proyek ini hanya beberapa faktor saja yang akan dipelajari untuk pembuatan Model Cosine Similarity dan K-Nearest Neighbor. Kedua algoritma ini akan mempelajari kesamaan antar data dalam fitur yang ada. Untuk faktor-faktor lainnya akan dipelajari pada pengembangan model lebih lanjut nantinya.
 
 ## Business Understanding
 
@@ -16,7 +16,7 @@ Contoh potensi manfaat dari Sistem Rekomendasi Aplikasi ini adalah membantu peng
 ### Problem Statements
 - Berdasarkan eksplorasi *dataset*, bagaimana karakteristik dataset? Ada berapa banyak jumlah data? Fitur apa yang bisa dipilih untuk pengembangan model?
 - Pada bagian Data Assesing, apakah terdapat terdapat data duplikat dan data missing? Jika ada tindakan apa yang paling tepat untuk diterapkan?
-- Pada bagian Data Cleaning, apakah perlu dilakukan tindakan dropping ataupun imputation untuk memamstikan data layal digunakan untuk pengembangan model?
+- Pada bagian Data Cleaning, apakah perlu dilakukan tindakan dropping ataupun imputation untuk memastikan data layal digunakan untuk pengembangan model?
 - Bagaimana mengolah *dataset* agar dapat dibuat model sistem rekomendasi?
 - Bagimana membuat model sistem rekomendasi Content Based Filtering dan Collaborative Filtering?
 - Bagaimanna cara mengukur nilai perfoma model sistem rekomendasi yang telah dibangun?
@@ -33,7 +33,7 @@ Contoh potensi manfaat dari Sistem Rekomendasi Aplikasi ini adalah membantu peng
 ### Solution Approach
 - Untuk eksplorasi fitur dilakukan Analisis Univariat. Analisis Univariat dilakukan untuk mengeksplorasi distribusi suatu fitur yang dipilih dalam suatu dataset. Teknik yang digunakan adalah menggunakan visualiasi data menggunakan barplot dari fitur yang dipilih.
 - Agar didapatkan model prediksi yang baik maka dilakukan proses *Data Wragling* yang meliputi *Data Gathering*, *Data Assessing*, dan *Data Cleaning*.
-- Untuk mengetahui perfoma model dilakukan pengecekan performa dengan metrik evaluasi seperti Precission, MAE dan RMSE.
+- Untuk mengetahui perfoma model dilakukan pengecekan performa dengan metrik evaluasi seperti Precission, Calinski Harabasz Score, dan Davies Bouldin Score
 
 ## Data Understanding
 Data yang digunakan dalam pembuatan model merupakan data sekunder. Data diambil dari Kaggle dengan nama *dataset* yaitu *California House Price*. 
@@ -67,158 +67,167 @@ Untuk memahami data lebih lanjut, dilakukan Analisis Univariat serta Visualisasi
 Analisis Univariat merupakan bentuk analisis data yang hanya merepresentasikan informasi yang terdapat pada satu variabel.  Jenis visualisasi ini umumnya digunakan untuk memberikan gambaran terkait distribusi sebuah variabel dalam suatu *dataset*. Sebagai alat bantu analisis, dilakukan teknik Visualisasi Data. Memvisualisasikan data memberikan wawasan mendalam tentang perilaku berbagai fitur-fitur yang tersedia dalam *dataset*. Teknik visualisasi yang digunakan pada pembuatan model proyek ini adalah dengan menggunakan barplot yang digunakan untuk memplot distribusi data.
 
 Berikut adalah hasil Exploratory Data Analysis (EDA) menggunkan Analisis Univariat dengan teknik Visualisasi Data  menggunakan barplot.
-![download (2)](https://github.com/ahmadsuaif/Proyek-Pertama-Predictive-Analytics/assets/66425290/97c7ccca-2ef8-4f02-aefa-e847c902dc25)
+
+![download (8)](https://github.com/ahmadsuaif/Proyek-Akhir-Sistem-Rekomendasi/assets/66425290/cd34f1c8-15c9-4000-bb3d-531c8285a975)
 
 Gambar 1a. Analisis Univariat (Data Kategori)
 
-![download (3)](https://github.com/ahmadsuaif/Proyek-Pertama-Predictive-Analytics/assets/66425290/5e4ae928-6257-4694-a78f-b538141ffc9c)
+![download (9)](https://github.com/ahmadsuaif/Proyek-Akhir-Sistem-Rekomendasi/assets/66425290/b19f0786-9a03-4a98-8768-46839a934907)
 
 Gambar 1b. Analisis Univariat (Data Numerik)
 
-Berdasarkan Gambar 1a , dapat dilihat bahwa distribusi data kategori untuk 'ocean_proximity' memiliki perbandingan jumlah yang tidak sama, untuk nilai data '<1H OCEAN' berjumlah 7607 dengan persentase 43.2% sedangkan nilai data 'ISLAND' hanya berjumlah 5. Lebih jauh, pada Gambar 1b, untuk data numerik memiliki karakteristik, yaitu:
-- koordinat longitude rumah mayoritas berada pada -118 derajat dan -122 derajat dan koordinat latitude rumah mayoritas berada pada 34 derajat dan 38 derajat
-- median dari umur rumah banyak terdistribusi pada rentang umur 10 - 40, namun nilai terbanyak terdapat pada nilai 50.
-- rata-rata terbanyak untuk data total room dan total bedroom yaitu di antara angka 1000-2000 room dan 200-400 bedroom.
-- rata-rata terbanyak untuk data population dan households berada di antara angka 500-1000 dan 200-400.
-- median income dan median house value terbanyak masing-masing berada di antara angka 3 dan 200000.
-- distribusi median house value miring ke kanan (right-skewed). Hal ini akan berimplikasi pada model.
+Berdasarkan Gambar 1a, dapat dilihat bahwa distribusi data 'Category' memiliki perbandingan jumlah yang tidak sama, dengan tiga 'Catergory' yang paling banyak berturut-turut yaitu: FAMILY sebanyak 1972 sampel dengan persentase 18.2%, GAME sebanyak 1144 sampel dengan persentase 10.6%, dan TOOLS sebanyak 843 sampel dengan persentase 7.8%. Untuk eksplorasi lebih lanjut, bisa divisualisasikan fitur kategorik lainnya. Sedangakan untuk fitur numerik, berdasarkan Gambar 1b, dapat dilihat mayoritas rating berada pada score 4, namun tampak bahwa visualisasi ini menampilkan rentang skor yang luas yaitu 0 sampai dengan sekitar 20. Oleh karena itu, pada bagian selanjutnya yaitu Data Preparation perlu dilakukan tindakan lebih terhadap fitur 'Rating'.
   
 ## Data Preparation
 Pada proses *Data Preparation* dilakukan kegiatan seperti *Data Gathering*, *Data Assessing*, dan *Data Cleaning*.
-Pada proses *Data Gathering*, data diimpor sedemikian rupa agar bisa dibaca dengan baik menggunakan *datafram*e Pandas.
+Pada proses *Data Gathering*, data diimpor sedemikian rupa agar bisa dibaca dengan baik menggunakan *dataframe* Pandas. Kegiatan ini sudah dilakukan di awal.
 Untuk proses *Data Assessing*, berikut adalah beberapa pengecekan yang dilakukan:
+- Outlier (data yang menyimpang dari rata-rata sekumpulan data yang ada)
 - Duplicate data (data yang serupa dengan data lainnya)
 - Missing value (data atau informasi yang "hilang" atau tidak tersedia)
-- Outlier (data yang menyimpang dari rata-rata sekumpulan data yang ada)
  
 Pada proses *Data Cleaning*, secara garis besar, terdapat tiga metode yang dapat digunakan antara lain seperti berikut:
 - Dropping (metode yang dilakukan dengan cara menghapus sejumlah baris data)
 - Imputation (metode yang dilakukan dengan cara mengganti nilai yang "hilang" atau tidak tersedia dengan nilai tertentu yang bisa berupa median atau mean dari data)
 - Interpolation (metode menghasilkan titik-titik data baru dalam suatu jangkauan dari suatu data)
 
-Pada kasus proyek ini tidak ditemukan data duplikat. Pada proyek ini ditemukan *Missing Value*. Adapaun metode yang digunakan untuk mengatasi hal ini adalah dengan menerapkan *imputation* dimana data yang *missing* diganti dengan nilai *mean*. Untuk *outlier* sendiri dilakukan metode *dropping* menggunakan metode IQR. IQR sendiri didapatkan dengan cara mengurangi Q3 dengan Q1 sebagaimana rumusan berikut. 
+Dengan bantuan visualiasi matriks, tampak terlihat adanya data yang tidak lengkap seperti terlihat pada Gambar 2.
 
-$$ IQR = Q<sub>3</sub> - Q<sub>1</sub> $$
-
-dimana
-Q<sub>1</sub> adalah kuartil pertama dan Q<sub>3</sub> adalah kuartil ketiga.
-
-Dengan menggunakan metode IQR, dapat ditentukan *outlier* melalui suatu nilai batas yang ditentukan. Setelah menggunakan metode IQR dimana *dataset* yang sebelumnya berjumlah 20640 menjadi 17609.
- 
-Semua proses ini diperlukan dalam rangka membuat model yang baik. 
-
-Untuk mereduksi jumlah fitur dilakukan proses PCA. Teknik reduksi ini adalah prosedur yang mengurangi jumlah fitur dengan tetap mempertahankan informasi pada data. PCA ini adalah teknik untuk mereduksi dimensi, mengekstraksi fitur, dan mentransformasi data dari “n-dimensional space” ke dalam sistem berkoordinat baru dengan dimensi m, di mana m lebih kecil dari n. Pada proyek ini, fitu 'housing_median_age',	'total_rooms',	'total_bedrooms',	'households' divisualisasikan untuk melihat hubungan di antara fitur-fitur tersebut. sperti yang terlihat pada Gambar 3 berikut.
-
-![download (7)](https://github.com/ahmadsuaif/Proyek-Pertama-Predictive-Analytics/assets/66425290/b05e92dd-398d-4932-9ad2-f75400ac1e26)
-
-Gambar 3 Visualisasi Hubungan antar Fitur sebelum Reduksi PCA
-
-Berdasarkan Gambar 3 dapat diketahui yang memiliki hubungan antar fitur hanya tiga yaitu 'total_rooms',	'total_bedrooms',	'households'. Selanjutnya, 3 fitur ini dapat direduksi dengan PCA. Sebelum itu, cek proporsi informasi dari ketiga komponen PCs tadi.
-
-```
-pca.explained_variance_ratio_.round(3)
-```
-Potongan kode tersebut memberikan keluaran berupa array([0.985, 0.014, 0.001]). Berdasarkan hasil ini, yang dipertahankan adalah PC (komponen) pertama saja karena dari output yang dideroleh diketahui bahwa 98.5% informasi pada ketiga fitur 'total_rooms',	'total_bedrooms',	'households' terdapat pada PC pertama. Sedangkan sisanya, sebesar 1.4% dan 0.1% terdapat pada PC kedua dan ketiga. PC pertama ini akan menjadi fitur 'house properties' menggantikan ketiga fitur lainnya ('total_rooms',	'total_bedrooms',	'households').
+![download (10)](https://github.com/ahmadsuaif/Proyek-Akhir-Sistem-Rekomendasi/assets/66425290/e82a237b-e708-4663-8717-2ef130609b4c)
 
 
-Setelah data dibersihkan, *dataset* dibagi menjadi data train dan data test untuk proses *Modeling*, dimana rasio pembagian data yang dipilih adalah 90:10 mengingat data test untuk rasio tersebut sudah terbilang cukup. 
-Adapun detail dari *dataset* tersebut adalah:
-- Total sampel di dalam *dataset* train: 15848
-- Total sampel di dalam *dataset* test: 1761
+Gambar 2. Visualiasi Matriks Data
+
+Pada kasus proyek ini ditemukan *outlier*, data duplikat, dan *missing value*. Adapaun metode yang digunakan untuk mengatasi hal ini adalah dengan menerapkan metode *dropping*. Setelah dilakukan metode ini, data sekarang sudah bersih. Tidak ada lagi outlier, data duplikat, dan data missing. Selanjutnya olah dataset agar dapat diproses untuk membuat sistem rekomendasi.
 
 ## Modeling
-Seperti yang dijelaskan di awal, model yang dipilih adalah model regresi karena merupakan salah satu algoritma yang paling umum digunakan dalam pembuatan model prediksi. Dalam bentuk yang sederhana, regresi terdiri dari intersep dan slope yang dituliskan dalam rumusan berikut
 
-$$ y = a + bX $$
+Seperti yang dijelaskan di awal, model yang dipilih adalah model Cosine Similarity dan K-Nearest Neighbor karena mampu membantu melihat kemiripan antar data. 
+
+1. Cosine similarity
+
+Cosine similarity mengukur kesamaan antara dua vektor dan menentukan apakah kedua vektor tersebut menunjuk ke arah yang sama. Ia menghitung sudut cosinus antara dua vektor. Semakin kecil sudut cosinus, semakin besar nilai cosine similarity. Cosine Similarity dituliskan dalam rumusan berikut
+
+$$ Cosine Similarity (A, B) = (A · B) / (||A|| * ||B||) $$ 
 
 dimana: 
-- y adalah variabel kriterium (variabel terikat yang digunakan untuk memprediksi)
-- a adalah intersep (variabel konstan yang memiliki arti sebagai titik perpotongan suatu garis dengan sumbu Y),
-- b adalah slope (nilai koefisien yang menyatakan ukuran kemiringan suatu garis), dan
-- X adalah variabel prediktor (variabel yang digunakan untuk memprediksi atau menjelaskan variabel lain dalam suatu model)
+- (A·B)menyatakan produk titik dari vektor A dan B.
+- ||A|| mewakili norma Euclidean (magnitudo) dari vektor A.
+- ||B|| mewakili norma Euclidean (magnitudo) dari vektor B.
 
-Secara umum, regresi ini itu sendiri digunakan untuk meramalkan pengaruh variabel prediktor terhadap variabel kriterium atau membuktikan ada atau tidaknya hubungan fungsional antara variabel bebas (X) dengan variabel terikat (y).
+Secara umum, Cosine Similarity mengukuran kesamaan antara dua vektor. Namun begitu terdapat kelebihan dan kekurangan dari model Cosine Similarity. Salah satu keuntungan Cosine Similarity adalah kompleksitasnya yang rendah. Sedangkan, salah satu kelemahan utama Cosine Similarity adalah besarnya vektor tidak diperhitungkan, hanya arahnya saja. Dalam hal ini, berarti perbedaan nilai tidak sepenuhnya diperhitungkan.
 
-Namun begitu terdapat kelebihan dan kekurangan dari model regresi, yaitu:
+Untuk melakukan pengujian model, digunakan potongan kode berikut.
 
-Kelebihan regresi:
-- Kemudahan untuk digunakan
-- Kekuatan Prediktor dalam mengidentifikasi sekuat apa pengaruh yang diberikan oleh variabel prediktor (variabel independen) terhadap variabel lainnya (variabel dependen).
-- Dapat memprediksi nilai/tren di masa yang mendatang
-
-Kelemahan dari model regresi adalah karena hasil ramalan dari analisis regresi merupakan nilai estimasi sehingga kemungkinan untuk tidak sesuai dengan data aktual tetaplah ada.
-
-Pada proyek yang dikerjakan, algoritma regresi yang coba dibandingkan adalah regresi linear, regresi ridge, *random forest regressor*, dan *random forest regressor* dengan hyperparamter tuning. Regresi linear adalah teknik analisis data yang memprediksi nilai data yang tidak diketahui dengan menggunakan nilai data lain yang terkait dan diketahui dimana secara matematis dimodelkan sebagai persamaan linier, regresi ridge merupakan metode estimasi koefisien regresi yang diperoleh melalui penambahan konstanta bias c, dan random forest adalah suatu algoritma yang digunakan pada klasifikasi data dalam jumlah yang besar dimana teknik klasifikasi *random forest* dilakukan melalui penggabungan pohon dengan melakukan training pada sampel data yang dimiliki.
-
-Untuk meningkatkan model, dilakukan *hyperparamter tuning*. Adapun paramater yang di-tuning antara lain n_estimators', 'max_depth', 'min_samples_split', dan 'min_samples_leaf. Untuk memudahkan proses *tuning* digunakan GridSearchCV. GridSearchCV itu sendiri merupakan bagian dari modul scikit-learn yang dapat digunakan untuk mendapatkan nilai *hyperparameter* secara otomatis. Grid Search adalah metode yang digunakan untuk mencari parameter yang paling tepat untuk meningkatkan performa model dengan mencoba seluruh kombinasi *hyperparameter* yang diberikan.
-
-Berikut adalah nilai parameter *tuning*
 ```
-params = {'n_estimators' : [50,80,100],
-          'max_depth' : [3,5,10],
-           'min_samples_split':[2,3,4],
-            'min_samples_leaf': [2,3,4]}
+app_recommendations('EF Spelling Bee')
 ```
-Berdasarkan hasil pengujian, terpilih grid.best_params_ yaitu 
-```
-{'max_depth': 10,
- 'min_samples_leaf': 4,
- 'min_samples_split': 2,
- 'n_estimators': 100}
-```
-Parameter dengan nilai inilah yang kemudian dibuat sebagai model.
+
+Tabel 1a, 1b, dan 1c berikut adalah hasil pelatihan model menggunakan Cosine Similarity untuk mendapatkan 5 buah App yang mirip
+
+Tabel 1a. Hasil Pengujian Model Content Based Filtering (dengan Filter Genre)
+
+|     |App|Genres|
+|---|---|---|
+|0|Timetable|Education|
+|1|British Columbia License|Education|
+|2|Starfall Free & Member|Education|
+|3|AP Calculus BC Practice Test	|Education|
+|4|Wifi BT Scanner|Education|
+
+Tabel 1b. Hasil Pengujian Model Content Based Filtering (dengan Filter Type)
+
+|     |App|Genres|
+|---|---|---|
+|0|Timetable|Free|
+|1|British Columbia License|Free|
+|2|Starfall Free & Member|Free|
+|3|AP Calculus BC Practice Test	|Free|
+|4|Wifi BT Scanner|Free|
+
+Tabel 1c. Hasil Pengujian Model Content Based Filtering (dengan Content Rating)
+
+|     |App|Genres|
+|---|---|---|
+|0|Timetable|Content Rating|
+|1|British Columbia License|Content Rating|
+|2|Starfall Free & Member|Content Rating|
+|3|AP Calculus BC Practice Test	|Content Rating|
+|4|Wifi BT Scanner|Content Rating|
+
+2. K-Nearest Neighbor
+
+K-Nearest Neighbor (KNN) merupakan algoritma yang paling sederhana dalam mengkelompokkan. Metode ini mudah dipahami dibandingkan metode lain karena mengkelompokkan berdasarkan jarak terdekat dengan objek lainnya (tetangga). K dalam KNN merupakan variabel jumlah tetangga terdekat yang akan diambil untuk proses klasifikasi. Jumlah K=1 akan membuat hasil klasifikasi terasa kalu karena hanya memperhitungkan satu tetangga terdekat atau satu record karakteristik data terdekat. Pada proyek ini dibuat model KNN dengan menggunakan Euclidean Distance. Diberikan titik data P dan kumpulan data D yang berisi beberapa titik data, jarak Euclidean antara P dan setiap titik data di D dihitung menggunakan rumus berikut:
+
+$$ Euclidean Distance (P, Q) = sqrt(∑(Pi - Qi)^2) $$
+
+Di mana:
+- Pi mewakili fitur ke-i dari titik data P.
+- Qi mewakili fitur ke-i dari titik data Q (titik data dari kumpulan data D).
+- ∑ merupakan simbol penjumlahan pada semua fitur titik data.
+
+Setelah jarak dihitung, algoritma KNN memilih tetangga terdekat K (titik data dengan jarak terkecil) untuk membuat prediksi untuk titik data baru P.
+
+KNN memiliki beberapa kelebihan, diantaranya adalah pelatihan sangat cepat, sederhana dan mudah dipelajari, tahan terhadap data pelatihan yang memiliki derau, dan efektif jika data pelatihan besar. Sedangkan, kekurangan dari KNN adalah: 1) nilai k menjadi bias dalam model; 2) komputasi yang kompleks; 3) keterbatasan memori; dan 4) mudah tertipu dengan atribut yang tidak relevan.
+
+Tabel 2 berikut merupakan hasil pengujian model K-Nearest Neighbor dengan metrik Euclidean Distance
+
+Tabel 2. Hasil Pengujian Model K-Nearest Neighbor
+
+|     |App Name|Similiarity Score|
+|---|---|---|
+|0|Hush - Beauty for Everyone	|100.0%|
+|1|Hairstyles step by step|99.99%|
+|2|Tie - Always be happy|99.97%|
+|3|Girls Hairstyles	|99.96%|
+|4|Mirror - Zoom & Exposure -|99.95%|
 
 ## Evaluation
-Adapun metrik yang sebagai alat ukur perfoma model yang dibuat antara lain **MSE · MAE · R<sup>2</sup>**. 
+Untuk mengukur seberapa baik model, digunakan metrik evaluasi. Adapun metrik yang sebagai alat ukur perfoma model yang dibuat antara lain **Precission, Calinski Harabasz Score**, dan **Davies Bouldin Score**. 
+
+- Presisi adalah metrik yang digunakan untuk mengevaluasi kinerja model pengelompokan. Metrik ini menghitung rasio prediksi positif sejati terhadap jumlah total prediksi positif (positif sejati dan positif palsu).
+- Calinski-Harabasz adalah metrik yang digunakan untuk mengevaluasi kualitas algoritma pengelompokan. Metrik ini mengukur rasio dispersi antar-cluster dengan dispersi dalam-cluster. Nilai yang lebih tinggi dari skor ini menunjukkan cluster yang terdefinisi dengan lebih baik.
+- Davies-Bouldin adalah metrik lain yang digunakan untuk mengevaluasi kualitas algoritma pengelompokan. Metrik ini menghitung kesamaan rata-rata antara setiap cluster dan cluster yang paling mirip sambil mempenalti cluster yang terlalu dekat satu sama lain.
 
 Berikut merupakan rumus dari masing-masing metrik yang digunakan:
 
-$$ MAE = (1/n) Σ |y<sub>i</sub> - ŷ<sub>i</sub>| $$
+$$ Precision = TP / (TP + FP) $$
 
-$$ MSE = (1/n) Σ (y<sub>i</sub> - ŷ<sub>i</sub>)<sup>2</sup> $$
+$$ Calinski-Harabasz Score = (BSS / WSS) * (n - k) / (k - 1) $$
 
-$$ R<sup>2</sup> = 1 - (MSE / Var(y)) $$
+$$ Davies-Bouldin Score = (1 / k) * Σ(max((Ri + Rj) / d(Ci, Cj))) $$
 
-y<sub>i</sub> mewakili nilai yang diamati,
-ŷ<sub>i</sub> mewakili nilai prediksi,
-n adalah jumlah titik data,
-Var(y) mewakili varians dari nilai yang diamati.
+dimana
+- TP (True Positives) adalah jumlah kejadian positif yang diprediksi dengan benar.
+- FP (False Positif) adalah jumlah kejadian positif yang diprediksi salah.
+- BSS (Between Sum of Squares) adalah jumlah kuadrat jarak antara centroid cluster dan rata-rata keseluruhan.
+- WSS (Dalam Jumlah Kuadrat) adalah jumlah jarak kuadrat antara titik data dan pusat cluster masing-masing.
+- n adalah jumlah total titik data.
+- k adalah jumlah cluster.
+- Ri adalah jarak rata-rata antara setiap titik data di cluster i dan centroid cluster i.
+- Rj adalah jarak rata-rata antara setiap titik data di cluster j dan pusat massa cluster j.
+- d(Ci, Cj) adalah jarak antara sentroid cluster i dan j.
 
-Berikut merupakan penjelasan kegunaan dari masing-masing metrik yang digunakan:
-- MAE menghitung rata-rata dari selisih absolut antara nilai prediksi dan nilai aktual. Semakin kecil nilai MAE, semakin baik kualitas model tersebut.
-- MSE menghitung rata-rata dari selisih kuadrat antara nilai prediksi dan nilai aktual. Semakin kecil nilai MSE, semakin baik kualitas model tersebut.
-- R<sup>2</sup> digunakan untuk menilai seberapa besar pengaruh variabel independen tertentu terhadap variabel dependen
+a. Presisi
 
-Tabel 1 berikut merupakan perbandingan 4 buah model yang coba dibandingkan
+Berdasarkan Tabel Tabel 1a, 1b, dan 1c dapat dihitung bahwasanya besar presisi jika dihitung dengan menggunakan rumusan adalah 5/5 atau 100% untuk model rekomendasi Top-5. Hal ini sesuai dengan hasil dimana model mampu memberikan rekomendasi dengan Genres, Type, dan Content Rating yang sama.
 
-|     |Model 1|Model 2|Model 3|Model 4|
-|---|---|---|---|---|
-|R<sup>2</sup>|-7504.309425109431|-7498.0783949337365.146779279|-1.880080745581838|2.432728538383974|
-|MSE|8166746.146779279|8163355.360001828|159980.5138016423|174656.3925179131|
-|MAE|6509173.648630178|6506404.9997212|133115.5655366269|154364.3230594773|
+b. Calinski-Harabasz Score
 
-Tabel 1. Perbandingan Performa MAE, MSE, dan R<sup>2</sup> Model
+Berikut adalah potongan kode untuk mengukur besar Calinski-Harabasz Score dari model yang telah dibuat 
+```
+calinski_harabasz_score(googleplaystore, app_name)
+```
+Pada model ini, nampak bahwa kluster masih belum terpisahkan dengan baik karena nilai skornya masih cukup rendah. Hal ini memungkinkan adanya rekomendasi pada beberapa aplikasi yang tidak sesuai dengan aplikasi yang disukai pengguna.
 
-Berdasarkan Tabel 1, secara umum Model 3 (RF1) dan Model 4 (RF2) menampilkan hasil performa yang lebih baik dimana masing-masing memiliki nilai R^2 yaitu sebesar -1.880080745581838 dan -2.432728538383974.
+c. Davies-Bouldin Score
 
-Secara lebih jauh perbandingan Model 1, 2, 3, dan 4 bisa dilihat pada Gambar 4 berikut.
+Berikut adalah potongan kode untuk mengukur besar Davies-Bouldin Score dari model yang telah dibuat 
+```
+davies_bouldin_score(googleplaystore, app_name)
+```
+Hasil evaluasi menunjukkan bahwa model ini memiliki skor yang relatif cukup kecil. Hal ini menandakan bahwa model sudah memiliki separasi kluster yang cukup baik. Hal ini terbukti dengan hasil rekomendasi aplikasi yang sudah cukup baik.
 
-![download (1)](https://github.com/ahmadsuaif/Proyek-Pertama-Predictive-Analytics/assets/66425290/a46a2fa1-d5c5-4371-a18f-409a84bb42da)
-
-Gambar 4. Perbandingan Model berdasarkan Nilai Error (dalam 1e6)
-
-Berdasarkan Gambar 4 dapat terlihat bahwa nilai error train dan test dari Model 3 (RF1) dan Model 4 (RF2) jauh lebih baik dibandingkan model lainnya.
-
-Selain itu dilakukan perbandingan nilai y_true terhadap nilai prediksi harga rumah dari 4 buah model yang dibuat. Tabel 2 berikut merupakan hasil dari evaluasi model yang telah dibuat.
-
-|     |y_true|prediksi_LR|prediksi_RR|prediksi_RF1|prediksi_RF2|
-|---|---|---|---|---|---|
-|15732|341700|218287.6|218309.3|347466.0|315645.2|
-
-Tabel 2. Perbandingan Model
-
-
-Berdasarkan hasil evaluasi, terlihat bahwa prediksi harga rumah dengan *Random Forest* (RF), baik RF1 (tanpa tuning) ataupun RF2 (dengan tuning) memberikan hasil yang paling mendekati y_true, dimana nilai y_true yaitu 341700 dan nilai RF1 dan RF2 masing-masing yaitu 347466.0 dan 315645.2. Dengan demikian bisa disimpulkan bahwa model yang telah dikembangkan dapat memprediksi harga rumah dengan baik dengan menggunakan *Random Forest Regressor*.
 
 ## Referensi:
 [1] Akhlak, Nancy, Suchit, Anil. (2021). Play Store App Analysis. International Research Journal of Engineering and Technology. 8. 3888-3893.
