@@ -115,8 +115,6 @@ dimana:
 - ||A|| mewakili norma Euclidean (magnitudo) dari vektor A.
 - ||B|| mewakili norma Euclidean (magnitudo) dari vektor B.
 
-Secara umum, Cosine Similarity mengukuran kesamaan antara dua vektor. Namun begitu terdapat kelebihan dan kekurangan dari model Cosine Similarity. Salah satu keuntungan Cosine Similarity adalah kompleksitasnya yang rendah. Sedangkan, salah satu kelemahan utama Cosine Similarity adalah besarnya vektor tidak diperhitungkan, hanya arahnya saja. Dalam hal ini, berarti perbedaan nilai tidak sepenuhnya diperhitungkan.
-
 Untuk melakukan pengujian model, digunakan potongan kode berikut.
 
 ```
@@ -155,6 +153,8 @@ Tabel 1c. Hasil Pengujian Model Content Based Filtering (dengan Content Rating)
 |3|AP Calculus BC Practice Test	|Content Rating|
 |4|Wifi BT Scanner|Content Rating|
 
+Secara umum, Cosine Similarity mengukuran kesamaan antara dua vektor. Namun begitu terdapat kelebihan dan kekurangan dari model Cosine Similarity. Salah satu keuntungan Cosine Similarity adalah kompleksitasnya yang rendah. Sedangkan, salah satu kelemahan utama Cosine Similarity adalah besarnya vektor tidak diperhitungkan, hanya arahnya saja. Dalam hal ini, berarti perbedaan nilai tidak sepenuhnya diperhitungkan.
+
 2. K-Nearest Neighbor
 
 K-Nearest Neighbor (KNN) merupakan algoritma yang paling sederhana dalam mengkelompokkan. Metode ini mudah dipahami dibandingkan metode lain karena mengkelompokkan berdasarkan jarak terdekat dengan objek lainnya (tetangga). K dalam KNN merupakan variabel jumlah tetangga terdekat yang akan diambil untuk proses klasifikasi. Jumlah K=1 akan membuat hasil klasifikasi terasa kalu karena hanya memperhitungkan satu tetangga terdekat atau satu record karakteristik data terdekat. Pada proyek ini dibuat model KNN dengan menggunakan Euclidean Distance. Diberikan titik data P dan kumpulan data D yang berisi beberapa titik data, jarak Euclidean antara P dan setiap titik data di D dihitung menggunakan rumus berikut:
@@ -168,8 +168,6 @@ Di mana:
 
 Setelah jarak dihitung, algoritma KNN memilih tetangga terdekat K (titik data dengan jarak terkecil) untuk membuat prediksi untuk titik data baru P.
 
-KNN memiliki beberapa kelebihan, diantaranya adalah pelatihan sangat cepat, sederhana dan mudah dipelajari, tahan terhadap data pelatihan yang memiliki derau, dan efektif jika data pelatihan besar. Sedangkan, kekurangan dari KNN adalah: 1) nilai k menjadi bias dalam model; 2) komputasi yang kompleks; 3) keterbatasan memori; dan 4) mudah tertipu dengan atribut yang tidak relevan.
-
 Tabel 2 berikut merupakan hasil pengujian model K-Nearest Neighbor dengan metrik Euclidean Distance
 
 Tabel 2. Hasil Pengujian Model K-Nearest Neighbor
@@ -181,6 +179,8 @@ Tabel 2. Hasil Pengujian Model K-Nearest Neighbor
 |2|Tie - Always be happy|99.97%|
 |3|Girls Hairstyles	|99.96%|
 |4|Mirror - Zoom & Exposure -|99.95%|
+
+KNN memiliki beberapa kelebihan, diantaranya adalah pelatihan sangat cepat, sederhana dan mudah dipelajari, tahan terhadap data pelatihan yang memiliki derau, dan efektif jika data pelatihan besar. Sedangkan, kekurangan dari KNN adalah: 1) nilai k menjadi bias dalam model; 2) komputasi yang kompleks; 3) keterbatasan memori; dan 4) mudah tertipu dengan atribut yang tidak relevan.
 
 ## Evaluation
 Untuk mengukur seberapa baik model, digunakan metrik evaluasi. Adapun metrik yang sebagai alat ukur perfoma model yang dibuat antara lain **Precission, Calinski Harabasz Score**, dan **Davies Bouldin Score**. 
