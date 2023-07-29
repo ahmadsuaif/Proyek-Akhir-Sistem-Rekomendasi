@@ -4,7 +4,7 @@
 
 Google Play adalah toko online yang sangat populer untuk menemukan aplikasi, game, film, acara TV, buku, dan konten lainnya. Google Play menyediakan 2 juta aplikasi & game untuk miliaran orang di seluruh dunia. Google Play adalah toko online yang dikunjungi pengguna untuk menemukan aplikasi, game, film, acara TV, buku, dan konten lainnya.  Setiap harinya Google Play dibanjiri oleh banyak aplikasi baru yang dibuat oleh para pengembang aplikasi. Hal ini tentunya berdampak positif bagi pengguna karena dihadapkan lebih banyak pilihan aplikasi yang bisa di-install. Namun hal ini tentunya juga akan membuat pengguna bingung memilih aplikasi yang paling sesuai dengan kebutuhannya [[1](https://irjet.com/archives/V8/i4/IRJET-V8I4745.pdf)]. 
 
-Sistem rekomendasi merupakan sistem yang memberikan rekomendasi pada suatu item yang dapat digunakan untuk membantu user dalam mengambil keputusan. [[2](https://www.researchgate.net/publication/220604600_Recommender_Systems_An_Overview)] [[3](https://www.researchgate.net/publication/258651634_A_Study_of_Recommender_System_Techniques)] [[4](https://www.researchgate.net/publication/281705736_Decision-making_in_recommender_systems_The_role_of_user's_goals_and_bounded_resources)]. Dalam hal pengambilan keputusan guna memilih aplikasi yang paling sesuai untuk di-install pengguna Google Play, maka tentunya pengembangan sistem rekomendasi merupakan hal yang akan sangat membantu pengguna.
+Sistem rekomendasi merupakan sistem yang memberikan rekomendasi pada suatu item yang dapat digunakan untuk membantu pengguna dalam mengambil keputusan. [[2](https://www.researchgate.net/publication/220604600_Recommender_Systems_An_Overview)] [[3](https://www.researchgate.net/publication/258651634_A_Study_of_Recommender_System_Techniques)] [[4](https://www.researchgate.net/publication/281705736_Decision-making_in_recommender_systems_The_role_of_user's_goals_and_bounded_resources)]. Dalam hal pengambilan keputusan guna memilih aplikasi yang paling sesuai untuk di-install pengguna Google Play, maka tentunya pengembangan sistem rekomendasi merupakan hal yang akan sangat membantu pengguna. Manfaat dan dampak nyata sistem rekomendasi bagi pengguna Google Play adalah mampu membantu pengguna mendapatkan aplikasi dengan kriteria (Genres, Type, dst) yang mirip dengan aplikasi yang sebelumnya pengguna telah unduh.
 
 Dalam hal pengembangan model sistem rekomendasi, ada banyak faktor yang bisa menjadi bahan pertimbangan [[5](https://www.researchgate.net/publication/331063850_Recommender_Systems_Challenges_and_Solutions_Survey)], Pada sistem rekomendasi aplikasi faktor-faktor yang bisa menjadi bahan pertimbangan antara lain seperti Category,	Rating,	Reviews, Size, Installs,	Type,	Price,	Content, Rating,	Genres,	Last Updated,	Current Ver,	Android Ver, dan faktor-faktor lainnya. Pada proyek ini hanya beberapa faktor saja yang akan dipelajari untuk pembuatan Model Cosine Similarity dan K-Nearest Neighbor. Kedua algoritma ini akan mempelajari kesamaan antar data dalam fitur yang ada. Untuk faktor-faktor lainnya akan dipelajari pada pengembangan model lebih lanjut nantinya.
 
@@ -16,7 +16,7 @@ Contoh potensi manfaat dari Sistem Rekomendasi Aplikasi ini adalah membantu peng
 ### Problem Statements
 - Berdasarkan eksplorasi *dataset*, bagaimana karakteristik dataset? Ada berapa banyak jumlah data? Fitur apa yang bisa dipilih untuk pengembangan model?
 - Pada bagian Data Assesing, apakah terdapat terdapat data duplikat dan data missing? Jika ada tindakan apa yang paling tepat untuk diterapkan?
-- Pada bagian Data Cleaning, apakah perlu dilakukan tindakan dropping ataupun imputation untuk memastikan data layal digunakan untuk pengembangan model?
+- Pada bagian Data Cleaning, apakah perlu dilakukan tindakan dropping ataupun imputation untuk memastikan data layak digunakan untuk pengembangan model?
 - Bagaimana mengolah *dataset* agar dapat dibuat model sistem rekomendasi?
 - Bagimana membuat model sistem rekomendasiCosine Similarity dan K-Nearest Neighbor?
 - Bagaimanna cara mengukur nilai perfoma model sistem rekomendasi yang telah dibangun?
@@ -32,7 +32,7 @@ Contoh potensi manfaat dari Sistem Rekomendasi Aplikasi ini adalah membantu peng
 
 ### Solution Approach
 - Untuk eksplorasi fitur dilakukan Analisis Univariat. Analisis Univariat dilakukan untuk mengeksplorasi distribusi suatu fitur yang dipilih dalam suatu dataset. Teknik yang digunakan adalah menggunakan visualiasi data menggunakan barplot dari fitur yang dipilih.
-- Agar didapatkan model prediksi yang baik maka dilakukan proses *Data Wragling* yang meliputi *Data Gathering*, *Data Assessing*, dan *Data Cleaning*.
+- Agar didapatkan model prediksi yang baik maka dilakukan proses *Data Wragling* yang meliputi *Data Gathering*, *Data Assessing*, dan *Data Cleaning*. Proses *Data Gathering* dilakukan dengan melakukan *load* data, untuk kemudian disimpan dalam *dataframe*. Proses *Data Assessing* dilakukan dengan mengecek Outlier (data yang menyimpang dari rata-rata sekumpulan data yang ada), Duplicate data (data yang serupa dengan data lainnya), dan missing value (data atau informasi yang "hilang" atau tidak tersedia). Sedangakanm Proses *Data Cleaning* adalah bentuk tindakan atas proses sebelumnya yaitu *Data Assessing*. Tindakan yang dapat dilakukan pada *Data Cleaning* untuk mengatasi data duplikat dan missing values adalah menghapus (dropping) baris data yang saat dicek terdapat  data duplikat dan missing values.
 - Untuk mengetahui perfoma model dilakukan pengecekan performa dengan metrik evaluasi seperti Precission, Calinski Harabasz Score, dan Davies Bouldin Score
 
 ## Data Understanding
@@ -76,7 +76,7 @@ Gambar 1a. Analisis Univariat (Data Kategori)
 
 Gambar 1b. Analisis Univariat (Data Numerik)
 
-Berdasarkan Gambar 1a, dapat dilihat bahwa distribusi data 'Category' memiliki perbandingan jumlah yang tidak sama, dengan tiga 'Catergory' yang paling banyak berturut-turut yaitu: FAMILY sebanyak 1972 sampel dengan persentase 18.2%, GAME sebanyak 1144 sampel dengan persentase 10.6%, dan TOOLS sebanyak 843 sampel dengan persentase 7.8%. Untuk eksplorasi lebih lanjut, bisa divisualisasikan fitur kategorik lainnya. Sedangkan untuk fitur numerik, berdasarkan Gambar 1b, dapat dilihat mayoritas rating berada pada score 4, namun tampak bahwa visualisasi ini menampilkan rentang skor yang luas yaitu 0 sampai dengan sekitar 20. Oleh karena itu, pada bagian selanjutnya yaitu Data Preparation perlu dilakukan tindakan lebih terhadap fitur 'Rating'.
+Berdasarkan Gambar 1a, dapat dilihat bahwa distribusi data 'Category' memiliki perbandingan jumlah yang tidak sama, dengan tiga 'Catergory' yang paling banyak berturut-turut yaitu: FAMILY sebanyak 1972 sampel dengan persentase 18.2%, GAME sebanyak 1144 sampel dengan persentase 10.6%, dan TOOLS sebanyak 843 sampel dengan persentase 7.8%. Untuk eksplorasi lebih lanjut, bisa divisualisasikan fitur kategorik lainnya. Sedangkan untuk fitur numerik, berdasarkan Gambar 1b, dapat dilihat mayoritas rating berada pada score 4, namun tampak bahwa visualisasi ini menampilkan rentang skor yang luas yaitu 0 sampai dengan sekitar 20. Oleh karena itu, pada bagian selanjutnya perlu dilakukan tindakan lebih terhadap fitur 'Rating'. Tindakan yang diambil untuk kondisi data seperti ini dijelaskan pada bagian berikutnya, Data Preparation.
   
 ## Data Preparation
 Pada proses *Data Preparation* dilakukan kegiatan seperti *Data Gathering*, *Data Assessing*, dan *Data Cleaning*.
@@ -98,7 +98,7 @@ Dengan bantuan visualiasi matriks, tampak terlihat adanya data yang tidak lengka
 
 Gambar 2. Visualiasi Matriks Data
 
-Pada kasus proyek ini ditemukan *outlier*, data duplikat, dan *missing value*. Adapaun metode yang digunakan untuk mengatasi hal ini adalah dengan menerapkan metode *dropping*. Setelah dilakukan metode ini, data sekarang sudah bersih. Tidak ada lagi outlier, data duplikat, dan data missing. Selanjutnya olah dataset agar dapat diproses untuk membuat sistem rekomendasi.
+Pada kasus proyek ini ditemukan *outlier*, data duplikat, dan *missing value*. Adapaun metode yang dipilih untuk digunakan dalam rangka mengatasi hal *outlier*, data duplikat, dan *missing value* adalah dengan menerapkan metode *dropping* menggunakan drop(). Metode drop() ini digunakan untuk menghapus baris *outlier*, data duplikat, dan *missing value* dari data. Setelah dilakukan metode ini, data sekarang sudah bersih. Hal ini dapat dilihat ketika dicek menggunakan info(). Tampak Non-Null Count memberikan nilai yang sama untuk semua fitur pada data. Tidak ada lagi outlier, data duplikat, dan data missing. Selanjutnya dataset dapat diolah untuk dapat diproses dalam membuat sistem rekomendasi.
 
 ## Modeling
 
@@ -135,7 +135,7 @@ Tabel 1a. Hasil Pengujian Model Content Based Filtering (dengan Filter Genre)
 
 Tabel 1b. Hasil Pengujian Model Content Based Filtering (dengan Filter Type)
 
-|     |App|Genres|
+|     |App|Type|
 |---|---|---|
 |0|Timetable|Free|
 |1|British Columbia License|Free|
@@ -145,13 +145,15 @@ Tabel 1b. Hasil Pengujian Model Content Based Filtering (dengan Filter Type)
 
 Tabel 1c. Hasil Pengujian Model Content Based Filtering (dengan Content Rating)
 
-|     |App|Genres|
+|     |App|Content Rating|
 |---|---|---|
-|0|Timetable|Content Rating|
-|1|British Columbia License|Content Rating|
-|2|Starfall Free & Member|Content Rating|
-|3|AP Calculus BC Practice Test	|Content Rating|
-|4|Wifi BT Scanner|Content Rating|
+|0|Timetable|Everyone|
+|1|British Columbia License|Everyone|
+|2|Starfall Free & Member|Everyone|
+|3|AP Calculus BC Practice Test	|Everyone|
+|4|Wifi BT Scanner|Everyone|
+
+Berdasarkan pengujian model seperti tampak pada Tabel 1a, 1b, dan 1c, dapat dilihat contoh konkret bagaimana model Cosine Similarity memberikan rekomendasi aplikasi berdasarkan fitur-fitur dipilih pada model. Adapun fitur yang dipilih pada model yang dibuat adalah 'App' terhadap 'Genres', 'App' terhadap 'Type', dan 'App' terhadap 'Content Rating'. Dari contoh pengujian dapat dilihat contoh konkret bagaimana model Cosine Similarity memberikan rekomendasi aplikasi yang sejenis dengan 'EF Spelling Bee' dengan fitur 'Genres', 'Type', dan 'Content Rating' yang mirip dengan aplikasi 'EF Spelling Bee' yaitu dengan Genres: Education, Type: Free dan Content Rating: Everyone. Hasil rekomendasi menampilkan 5 buah aplikasi dengan Genres: Education, Type: Free dan Content Rating: Everyone yang serupa dengan 'EF Spelling Bee'. Tentunya sistem rekomendasi ini sangat membantu pengguna mencari aplikasi yang sejenis.
 
 Secara umum, Cosine Similarity mengukuran kesamaan antara dua vektor. Namun begitu terdapat kelebihan dan kekurangan dari model Cosine Similarity. Salah satu keuntungan Cosine Similarity adalah kompleksitasnya yang rendah. Sedangkan, salah satu kelemahan utama Cosine Similarity adalah besarnya vektor tidak diperhitungkan, hanya arahnya saja. Dalam hal ini, berarti perbedaan nilai tidak sepenuhnya diperhitungkan.
 
@@ -179,6 +181,8 @@ Tabel 2. Hasil Pengujian Model K-Nearest Neighbor
 |2|Tie - Always be happy|99.97%|
 |3|Girls Hairstyles	|99.96%|
 |4|Mirror - Zoom & Exposure -|99.95%|
+
+Berdasarkan Tabel 2, tampak contoh konkret bagaimana model K-Nearest Neighbor memberikan rekomendasi aplikasi berdasarkan fitur-fitur yang dipelajari dalam model, yaitu 'App' terhadap 'Category',	'Rating',	'Reviews',	'Size',	'Installs', dan	'Price'. Hasil rekomendasi untuk aplikasi yang mirip dengan 'Natural recipes for your beauty' berdasarkan berdasarkan fitur-fitur yang dipelajari memberikan hasil rekomendasi aplikasi serupa yaitu 'Hush - Beauty for Everyone', 'Hairstyles step by step', 'Tie - Always be happy', 'Girls Hairstyles', dan 'Mirror - Zoom & Exposure' seperti tampak pada Tabel 2 dengan tingkat kemiripan dalam persentase berturut-turut senilai 100.0%, 99.99%, 99.97%, 99.96%, dan 99.95%. Tentunya model ini akan sangat membantu pengguna menemukan aplikasi yang mirip dengan Natural recipes for your beauty.
 
 KNN memiliki beberapa kelebihan, diantaranya adalah pelatihan sangat cepat, sederhana dan mudah dipelajari, tahan terhadap data pelatihan yang memiliki derau, dan efektif jika data pelatihan besar. Sedangkan, kekurangan dari KNN adalah: 1) nilai k menjadi bias dalam model; 2) komputasi yang kompleks; 3) keterbatasan memori; dan 4) mudah tertipu dengan atribut yang tidak relevan.
 
@@ -210,7 +214,7 @@ dimana
 
 a. Presisi
 
-Berdasarkan Tabel Tabel 1a, 1b, dan 1c dapat dihitung bahwasanya besar presisi jika dihitung dengan menggunakan rumusan adalah 5/5 atau 100% untuk model rekomendasi Top-5. Hal ini sesuai dengan hasil dimana model mampu memberikan rekomendasi dengan Genres, Type, dan Content Rating yang sama.
+Adapun interpretasi hasil presisi berdasarkan Tabel Tabel 1a, 1b, dan 1c dapat dilihat bahwasanya besar presisi jika dihitung dengan menggunakan rumusan presisi adalah 5/5 atau 100% untuk model rekomendasi Top-5. Hal ini menunjukkan bahwa model mampu memberikan rekomendasi dengan tingkat presisi yang sangat baik (dalam hal ini 100%). Hal ini sesuai dengan hasil uji dimana model mampu memberikan rekomendasi dengan Genres, Type, dan Content Rating yang yang mirip dengan aplikasi 'EF Spelling Bee' yaitu dengan Genres: Education, Type: Free dan Content Rating: Everyone. Hasil rekomendasi menampilkan 5 buah aplikasi dengan Genres: Education, Type: Free dan Content Rating: Everyone yang serupa dengan 'EF Spelling Bee'.
 
 b. Calinski-Harabasz Score
 
@@ -223,7 +227,7 @@ Berikut adalah skor setelah potongan kode tersebut dijalankan
 7.4998974132315315
 ```
 
-Pada model ini, nampak bahwa kluster masih belum terpisahkan dengan baik karena nilai skornya masih cukup rendah. Hal ini memungkinkan adanya rekomendasi pada beberapa aplikasi yang tidak sesuai dengan aplikasi yang disukai pengguna.
+Adapaun interpretasi hasil Calinski-Harabasz Score pada model ini adalah bahwa model memberikan skor yang relatif rendah dengan nilai 7.4998974132315315. Hal ini menunjukkan bahwa kluster pada model masih belum terpisahkan dengan baik karena nilai skornya masih cukup rendah. Hal ini memungkinkan adanya rekomendasi pada beberapa aplikasi yang tidak sesuai dengan aplikasi yang disukai pengguna. Pada pengujian model  untuk aplikasi yang mirip dengan 'Natural recipes for your beauty' memberikan hasil rekomendasi aplikasi serupa yaitu 'Hush - Beauty for Everyone', 'Hairstyles step by step', 'Tie - Always be happy', 'Girls Hairstyles', dan 'Mirror - Zoom & Exposure'. Mengingat skor Calinski-Harabasz yang relatif cukup rendah, maka artinya kluster 'App' masih belum terkelompokkan dengan sempurna. Artinya dari 5 aplikasi serupa yang ditampilkan oleh model memungkinkan terdapat adanya beberapa aplikasi yang direkomendasikan tapi tidak mirip dengan aplikasi yang digunakan pengguna.
 
 c. Davies-Bouldin Score
 
@@ -235,7 +239,7 @@ Berikut adalah skor setelah potongan kode tersebut dijalankan
 ```
 1.585735926526135
 ```
-Hasil evaluasi menunjukkan bahwa model ini memiliki skor yang relatif cukup kecil. Hal ini menandakan bahwa model sudah memiliki separasi kluster yang cukup baik. Hal ini terbukti dengan hasil rekomendasi aplikasi yang sudah cukup baik.
+Adapaun interpretasi hasil Davies-Bouldin Score pada model ini adalah bahwa model memberikan skor dengan nilai 1.585735926526135. Hasil evaluasi Davies-Bouldin menunjukkan bahwa model ini memiliki skor yang relatif cukup kecil. Hal ini menandakan bahwa model sudah memiliki separasi kluster yang cukup baik. Pada pengujian model  untuk aplikasi yang mirip dengan 'Natural recipes for your beauty' memberikan hasil rekomendasi aplikasi serupa yaitu 'Hush - Beauty for Everyone', 'Hairstyles step by step', 'Tie - Always be happy', 'Girls Hairstyles', dan 'Mirror - Zoom & Exposure'. Mengingat skor Davies-Bouldin Score yang relatif cukup rendah, dari 5 aplikasi serupa yng ditampilkan oleh model artinya model telah cukup berhasil mengelompokkan 'App' pada kluster yang sesuai sehingga mampu memberikan rekomendasi aplikasi yang mirip dengan yang digunakan pengguna.
 
 
 ## Referensi:
